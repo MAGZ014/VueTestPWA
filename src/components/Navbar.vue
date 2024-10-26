@@ -4,7 +4,7 @@
       <!-- Este div mantiene el contenido dentro del navbar -->
       <a class="navbar-brand" href="#">
         <img
-          src="https://www.utsjr.edu.mx/build/img/logos/logoSoyUt.png"
+          src="../assets/img/Lobos-Lit Logo.png"
           alt="Logo"
           width="170"
           height="50"
@@ -71,7 +71,7 @@ export default {
 <style scoped>
 .navbar {
   color: white;
-  background-color: #002855;
+  background-color: #003571;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Agrega una sombra */
 }
 a {

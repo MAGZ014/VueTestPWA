@@ -1,22 +1,26 @@
 <template>
+  <br />
+  <br />
   <div class="login-container">
     <div class="login-box">
       <img
-      src="../assets/img/Lobos-Lit Logo.png"
-
+        src="../assets/img/Lobos-Lit Logo.png"
         alt="Logo"
         class="login-logo"
       />
-      <h1>Login</h1>
-      <form @submit.prevent="login">
+      <h1>REGISTRO</h1>
+      <form>
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label"
-            >Email address</label
-          >
+          <label for="exampleInputEmail1" class="form-label">Email</label>
           <input
             type="text"
-            v-model="username"
-            id="username"
+            required
+            class="form-control"
+            aria-describedby="emailHelp"
+          />
+          <label for="exampleInputEmail1" class="form-label">Nombre</label>
+          <input
+            type="text"
             required
             class="form-control"
             aria-describedby="emailHelp"
@@ -25,48 +29,20 @@
             <label for="exampleInputPassword1" class="form-label"
               >Password</label
             >
-            <input
-              type="password"
-              v-model="password"
-              required
-              class="form-control"
-              id="exampleInputPassword1"
-            />
+            <input type="password" required class="form-control" />
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+
+          <button type="submit" class="btn">Registrar</button>
         </div>
-        <p v-if="error" class="error-msg"><div class="alert alert-danger" role="alert">
-          Incorrect username or password</div></p>
       </form>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      username: "",
-      password: "",
-      error: null,
-    };
-  },
-  methods: {
-    login() {
-      // Simulación de autenticación básica
-      if (this.username === "admin" && this.password === "password") {
-        localStorage.setItem("auth", true);
-        this.$router.push("/Home");
-      } else {
-        this.error = "Invalid username or password";
-      }
-    },
-  },
-};
-</script>
+<script></script>
 
 <style scoped>
-h1{
+h1 {
   font-weight: bold;
 }
 /* Centrar el formulario en la pantalla */
@@ -79,7 +55,7 @@ h1{
 }
 
 .login-box {
-  background-color: #2eaa95;
+  background-color: #299684;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -110,6 +86,10 @@ label {
   color: #555;
 }
 
+.form-control {
+  background-color: #aff6ea;
+}
+
 .login-input {
   width: 100%;
   padding: 10px;
@@ -120,11 +100,9 @@ label {
   outline: none;
   transition: border-color 0.3s ease;
 }
-.form-control{
-  background-color: #aff6ea;
-}
+
 .login-input:focus {
-  border-color:#0f4c42;
+  border-color: #007bff;
 }
 
 .login-button {
@@ -138,11 +116,6 @@ label {
   font-size: 16px;
   margin-top: 10px;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.login-button:hover {
-  background-color: #0056b3;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .btn:hover {

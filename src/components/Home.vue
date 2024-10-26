@@ -1,6 +1,6 @@
 <template>
   <h2>🐺 LOBOS KIT 🐺</h2>
-  <p class="alert alert-success">Equipos de computos</p>
+  <p class="alert alert-success">Equipos de computo</p>
   <div class="container mt-4">
     <div class="row">
       <div
