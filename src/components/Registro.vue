@@ -31,10 +31,11 @@
             >
             <input type="password" required class="form-control" />
           </div>
-
+          <br />
           <button type="submit" class="btn">Registrar</button>
         </div>
       </form>
+      <p>¿Ya tienes una cuenta? <a href="/Login">Sign Up</a></p>
     </div>
   </div>
 </template>
@@ -55,7 +56,7 @@ h1 {
 }
 
 .login-box {
-  background-color: #299684;
+  background-color: #174371;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -64,7 +65,7 @@ h1 {
 }
 
 .login-logo {
-  width: 150px;
+  width: 200px;
   height: 80px;
   margin-bottom: 20px;
 }
@@ -86,45 +87,35 @@ label {
   color: #555;
 }
 
-.form-control {
-  background-color: #aff6ea;
-}
-
 .login-input {
   width: 100%;
   padding: 10px;
   border-radius: 25px;
-  border: 1px solid #ddd;
+  border: 1px solid #ffffff;
   box-sizing: border-box;
   font-size: 16px;
   outline: none;
   transition: border-color 0.3s ease;
 }
-
-.login-input:focus {
-  border-color: #007bff;
-}
-
-.login-button {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  width: 100%;
-  font-size: 16px;
-  margin-top: 10px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+.form-control {
+  color: #ffffff;
+  background-color: #4f80b4;
 }
 
 .btn:hover {
-  background-color: #0050a4;
+  background-color: #3bd7bd;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 .btn {
   color: white;
   width: 70%;
-  background-color: #174371;
+  background-color: #2eaa95;
+}
+p {
+  color: #fff;
+}
+label {
+  color: #dbdbdb;
 }
 </style>

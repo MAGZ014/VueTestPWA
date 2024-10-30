@@ -2,8 +2,7 @@
   <div class="login-container">
     <div class="login-box">
       <img
-      src="../assets/img/Lobos-Lit Logo.png"
-
+        src="../assets/img/Lobos-Lit Logo.png"
         alt="Logo"
         class="login-logo"
       />
@@ -14,8 +13,8 @@
             >Email address</label
           >
           <input
-            type="text"
-            v-model="username"
+            type="email"
+            v-model="correo"
             id="username"
             required
             class="form-control"
@@ -33,32 +32,50 @@
               id="exampleInputPassword1"
             />
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <br />
+
+          <button type="submit" class="btn">Submit</button>
         </div>
-        <p v-if="error" class="error-msg"><div class="alert alert-danger" role="alert">
-          Incorrect username or password</div></p>
+        <div class="alert alert-danger" role="alert" v-if="errorMessage">
+          Incorrect username or password
+        </div>
       </form>
+      <p>¿Nuevo en Lobos Kit? <a href="/Registro">Crea una cuenta</a></p>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
-      username: "",
+      correo: "",
       password: "",
-      error: null,
+      errorMessage: "",
     };
   },
   methods: {
-    login() {
-      // Simulación de autenticación básica
-      if (this.username === "admin" && this.password === "password") {
-        localStorage.setItem("auth", true);
-        this.$router.push("/Home");
-      } else {
-        this.error = "Invalid username or password";
+    async login() {
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/auth/login",
+          {
+            correo: this.correo,
+            password: this.password,
+          },
+          { withCredentials: true }
+        );
+        // Redirige al usuario a la página principal
+        this.$router.push("/home");
+      } catch (error) {
+        // Maneja el caso en que error.response esté indefinido
+        this.errorMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          "Error en la autenticación";
       }
     },
   },
@@ -66,7 +83,7 @@ export default {
 </script>
 
 <style scoped>
-h1{
+h1 {
   font-weight: bold;
 }
 /* Centrar el formulario en la pantalla */
@@ -79,7 +96,7 @@ h1{
 }
 
 .login-box {
-  background-color: #2eaa95;
+  background-color: #174371;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -88,7 +105,7 @@ h1{
 }
 
 .login-logo {
-  width: 150px;
+  width: 200px;
   height: 80px;
   margin-bottom: 20px;
 }
@@ -114,44 +131,31 @@ label {
   width: 100%;
   padding: 10px;
   border-radius: 25px;
-  border: 1px solid #ddd;
+  border: 1px solid #ffffff;
   box-sizing: border-box;
   font-size: 16px;
   outline: none;
   transition: border-color 0.3s ease;
 }
-.form-control{
-  background-color: #aff6ea;
-}
-.login-input:focus {
-  border-color:#0f4c42;
-}
-
-.login-button {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  width: 100%;
-  font-size: 16px;
-  margin-top: 10px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.login-button:hover {
-  background-color: #0056b3;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.form-control {
+  color: #ffffff;
+  background-color: #4f80b4;
 }
 
 .btn:hover {
-  background-color: #0050a4;
+  background-color: #3bd7bd;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 .btn {
   color: white;
   width: 70%;
-  background-color: #174371;
+  background-color: #2eaa95;
+}
+p {
+  color: #fff;
+}
+label {
+  color: #dbdbdb;
 }
 </style>

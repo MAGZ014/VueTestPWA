@@ -25,20 +25,19 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="/Home"><i class="fas fa-cog"></i> Home</a>
+            <a class="nav-link" href="/Home">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/User"
-              ><i class="fas fa-users"></i> Usuarios</a
-            >
+            <a class="nav-link" href="/Store">Store</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/Login"
-              ><i class="fas fa-info-circle"></i>Registro</a
-            >
+            <a class="nav-link" href="/Cuenta">Cuenta</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/loguot"
+            <a class="nav-link" href="/Login">Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" @click.prevent="logout"
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="26"
@@ -65,6 +64,25 @@
 <script>
 export default {
   name: "Navbar",
+  methods: {
+    async logout() {
+      try {
+        const response = await fetch("http://localhost:3000/auth/logout", {
+          method: "POST",
+          credentials: "include", // Incluye las cookies en la solicitud
+        });
+
+        if (response.ok) {
+          // Redirige al usuario al login después de logout exitoso
+          this.$router.push("/login");
+        } else {
+          console.error("Logout fallido");
+        }
+      } catch (error) {
+        console.error("Error en la solicitud de logout:", error);
+      }
+    },
+  },
 };
 </script>
 

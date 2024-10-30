@@ -1,31 +1,29 @@
 <template>
-  <h2>🐺 LOBOS KIT 🐺</h2>
-  <p class="alert alert-success">Equipos de computo</p>
-  <div class="container mt-4">
-    <div class="row">
-      <div
-        v-for="equipo in equipos"
-        :key="equipo.id"
-        class="col-lg-6 col-md-12 mb-4"
-      >
-        <!-- Ajusta el tamaño de la columna -->
-        <div class="card h-100 d-flex flex-row align-items-center flex-wrap">
-          <div class="image-container">
-            <img
-              :src="equipo.image_url"
-              class="card-img"
-              alt="Imagen de equipo"
-            />
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">🐺 -- {{ equipo.title }}</h5>
-            <p class="card-text">Precio: ${{ equipo.price.toFixed(2) }}</p>
-            <p class="card-text">Reseñas: {{ equipo.reviews }}</p>
-            <a :href="equipo.url" target="_blank" class="btn">Pagina Ofical</a>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="image-container">
+    <img
+      src="../assets/img/Lobos-Lit Logo.png"
+      alt="Imagen descriptiva de Lobos-Kit"
+      class="header-image"
+    />
+  </div>
+
+  <!-- Contenedor principal para el h2 y el párrafo -->
+  <div class="content-container">
+    <!-- Encabezado que cambia con el efecto de escritura de teclado -->
+    <h2 class="typewriter">{{ currentText }}</h2>
+
+    <!-- Texto de descripción -->
+    <p>
+      Lobos Kit es una aplicación móvil y web diseñada para ayudar a estudiantes
+      de nuevo ingreso de la Universidad Tecnológica de San Juan del Río a
+      cotizar y seleccionar equipos de cómputo, materiales y software necesarios
+      para sus carreras. La app ofrece recomendaciones personalizadas basadas en
+      el plan de estudios, comparaciones de precios, y opciones de
+      financiamiento.
+    </p>
+
+    <!-- Botón debajo del párrafo -->
+    <a href="/Login" target="_blank" class="btn">Comienza ahora!!</a>
   </div>
 </template>
 
@@ -33,19 +31,45 @@
 export default {
   data() {
     return {
-      equipos: [], // Aquí irán los equipos
+      texts: [
+        "Tu guía inteligente para equiparte y triunfar en la Universidad.",
+        "Todo lo que necesitas para comenzar tu carrera, al alcance de un clic.",
+        "Encuentra el equipo perfecto para tu carrera.",
+        "Equípate para el éxito desde el primer día.",
+        "Tu aliado en tecnología para la vida universitaria.",
+      ],
+      currentText: "",
+      textIndex: 0,
+      charIndex: 0,
     };
   },
-  async mounted() {
-    await this.fetchEquipos(); // Llama a la función para obtener los equipos
+  mounted() {
+    this.typeText();
   },
   methods: {
-    async fetchEquipos() {
-      try {
-        const response = await fetch("http://localhost:3000/equipo"); // Tu API
-        this.equipos = await response.json();
-      } catch (error) {
-        console.error("Error al obtener equipos:", error);
+    // Método para crear el efecto de escritura de teclado
+    typeText() {
+      const currentString = this.texts[this.textIndex];
+
+      if (this.charIndex < currentString.length) {
+        this.currentText += currentString.charAt(this.charIndex);
+        this.charIndex++;
+        setTimeout(this.typeText, 100); // Velocidad de escritura
+      } else {
+        // Espera antes de borrar el texto y pasar al siguiente
+        setTimeout(this.eraseText, 2000); // Tiempo en ms antes de borrar
+      }
+    },
+    // Método para borrar el texto antes de pasar al siguiente
+    eraseText() {
+      if (this.charIndex > 0) {
+        this.currentText = this.currentText.slice(0, this.charIndex - 1);
+        this.charIndex--;
+        setTimeout(this.eraseText, 50); // Velocidad de borrado
+      } else {
+        // Cambia al siguiente texto en el arreglo
+        this.textIndex = (this.textIndex + 1) % this.texts.length;
+        this.typeText();
       }
     },
   },
@@ -53,38 +77,83 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  flex-wrap: wrap;
-}
-
+/* Estilos para centrar la imagen */
 .image-container {
-  width: 150px;
-  margin-right: 15px;
+  display: flex; /* Activa flexbox */
+  justify-content: center; /* Centra horizontalmente */
 }
 
-.card-img {
-  width: 100%;
-  height: auto;
-  object-fit: cover; /* Ajusta la imagen sin distorsionarla */
-  border-radius: 8px;
+.header-image {
+  max-width: 100%; /* La imagen ocupa el 100% del ancho del contenedor */
+  height: auto; /* Mantiene la relación de aspecto */
 }
 
-.card-body {
-  flex: 1;
-  padding-left: 15px;
+/* Contenedor para el h2 y el párrafo */
+.content-container {
+  max-width: 800px; /* Limita el ancho del contenedor de texto */
+  margin: 20px auto; /* Centra el contenedor horizontalmente */
+  padding: 0 20px; /* Espaciado a los lados */
+  text-align: center; /* Centra el texto dentro del contenedor */
 }
 
-.card-title {
-  font-size: 1.1rem;
-  font-weight: bold;
+/* Estilos para el efecto de máquina de escribir */
+.typewriter {
+  font-size: 1.5em; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
+  white-space: nowrap; /* No permite que el texto se rompa */
+  overflow: hidden; /* Oculta el texto desbordado */
+  border-right: 3px solid; /* Cursor parpadeante */
+  animation: blink-caret 0.7s step-end infinite; /* Animación del cursor */
 }
 
-.card-text {
-  margin-bottom: 0.5rem;
+/* Efecto de parpadeo del cursor */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent; /* Sin color al inicio y fin */
+  }
+  50% {
+    border-color: black; /* Color del cursor */
+  }
+}
+
+/* Estilos para el párrafo */
+p {
+  font-size: 1em; /* Tamaño de fuente del párrafo */
+  margin-top: 10px; /* Espaciado superior */
+  line-height: 1.5; /* Espaciado entre líneas */
+}
+
+/* Estilos para el botón */
+.action-button {
+  margin-top: 20px; /* Espaciado superior */
+  padding: 10px 20px; /* Espaciado interno del botón */
+  font-size: 1em; /* Tamaño de fuente del botón */
+  color: white; /* Color del texto del botón */
+  background-color: #007bff; /* Color de fondo del botón */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+/* Cambia el color del botón al pasar el cursor sobre él */
+.action-button:hover {
+  background-color: #0056b3; /* Color más oscuro */
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 768px) {
+  .content-container {
+    padding: 0 10px; /* Reduce el espaciado en pantallas pequeñas */
+  }
+
+  .typewriter {
+    font-size: 1.2em; /* Ajusta el tamaño de la fuente en pantallas pequeñas */
+  }
+
+  p {
+    font-size: 0.9em; /* Ajusta el tamaño del párrafo en pantallas pequeñas */
+  }
 }
 
 .btn {
@@ -99,22 +168,5 @@ export default {
   margin-top: 10px;
   color: #fafafa;
   background-color: #006452;
-}
-
-/* Media Queries para diseño responsivo */
-@media (max-width: 768px) {
-  .card {
-    flex-direction: column; /* Cambia a una columna en pantallas pequeñas */
-    text-align: center; /* Centrar el contenido en pantallas pequeñas */
-  }
-
-  .image-container {
-    width: 100%; /* Imagen toma todo el ancho en pantallas pequeñas */
-    margin: 0 0 15px 0; /* Margen solo en la parte inferior */
-  }
-
-  .card-body {
-    padding-left: 0; /* Elimina el padding en pantallas pequeñas */
-  }
 }
 </style>
