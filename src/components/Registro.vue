@@ -9,27 +9,44 @@
         class="login-logo"
       />
       <h1>REGISTRO</h1>
-      <form>
+      <form @submit.prevent="register">
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Email</label>
+          <label for="email" class="form-label">Email</label>
           <input
+            v-model="formData.correo"
+            type="email"
+            required
+            class="form-control"
+            id="email"
+          />
+
+          <label for="nombre" class="form-label">Nombre</label>
+          <input
+            v-model="formData.nombre"
             type="text"
             required
             class="form-control"
-            aria-describedby="emailHelp"
+            id="nombre"
           />
-          <label for="exampleInputEmail1" class="form-label">Nombre</label>
+
+          <label for="cuatrimestre" class="form-label">Cuatrimestre</label>
           <input
-            type="text"
+            v-model.number="formData.cuatrimestre"
+            type="number"
             required
             class="form-control"
-            aria-describedby="emailHelp"
+            id="cuatrimestre"
           />
+
           <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label"
-              >Password</label
-            >
-            <input type="password" required class="form-control" />
+            <label for="password" class="form-label">Password</label>
+            <input
+              v-model="formData.password"
+              type="password"
+              required
+              class="form-control"
+              id="password"
+            />
           </div>
           <br />
           <button type="submit" class="btn">Registrar</button>
@@ -40,13 +57,53 @@
   </div>
 </template>
 
-<script></script>
+<script setup>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const formData = ref({
+  nombre: "",
+  correo: "",
+  cuatrimestre: 0,
+  password: "",
+  id_carrera: 10, // Aquí puedes setear el ID de la carrera predeterminado
+  id_rol: 2, // Fijamos el rol a 2 como se indicó
+});
+
+const register = async () => {
+  try {
+    const response = await fetch("http://localhost:3000/cliente/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData.value),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error en el registro");
+    }
+
+    const data = await response.json();
+    console.log("Usuario registrado:", data);
+    alert("Registro exitoso");
+
+    // Redirigir al usuario al iniciar sesión
+    router.push("/Login");
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Error en el registro");
+  }
+};
+</script>
 
 <style scoped>
 h1 {
   font-weight: bold;
 }
-/* Centrar el formulario en la pantalla */
+/* Estilos */
 .login-container {
   font-family: Arial, sans-serif;
   display: flex;

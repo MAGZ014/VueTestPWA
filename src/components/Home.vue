@@ -23,7 +23,7 @@
     </p>
 
     <!-- Botón debajo del párrafo -->
-    <a href="/Login" target="_blank" class="btn">Comienza ahora!!</a>
+    <router-link to="/Login" class="btn">Comienza ahora!!</router-link>
   </div>
 </template>
 

@@ -31,7 +31,7 @@
             <a class="nav-link" href="/Store">Store</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/Cuenta">Cuenta</a>
+            <a class="nav-link" href="/Cuenta">Carrera</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/Login">Sign Up</a>
@@ -74,7 +74,7 @@ export default {
 
         if (response.ok) {
           // Redirige al usuario al login después de logout exitoso
-          this.$router.push("/login");
+          this.$router.push("/Home");
         } else {
           console.error("Logout fallido");
         }

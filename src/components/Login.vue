@@ -68,7 +68,7 @@ export default {
           { withCredentials: true }
         );
         // Redirige al usuario a la página principal
-        this.$router.push("/home");
+        this.$router.push("/Store");
       } catch (error) {
         // Maneja el caso en que error.response esté indefinido
         this.errorMessage =
