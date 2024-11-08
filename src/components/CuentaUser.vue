@@ -21,7 +21,9 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router"; // Importa el router
 
+const router = useRouter(); // Inicializa el router
 const carreras = ref([]);
 
 // Función para obtener las carreras de la API al montar el componente
@@ -47,17 +49,20 @@ onMounted(fetchCarreras);
 // Función para manejar la selección de la categoría
 const selectCategory = async (carreraId) => {
   try {
-    const response = await fetch("http://localhost:3000/seleccionar-carrera", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include", // Incluye las credenciales en la solicitud
-      body: JSON.stringify({ carrera_id: carreraId }),
-    });
+    const response = await fetch(
+      `http://localhost:3000/equipo/carrera/${carreraId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // Incluye las credenciales en la solicitud
+      }
+    );
 
     if (response.ok) {
       console.log("Carrera seleccionada:", carreraId);
+      router.push({ name: "StoreCarrera", params: { id: carreraId } });
     } else {
       console.error("Error en la respuesta de la API:", response.statusText);
     }
