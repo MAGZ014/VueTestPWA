@@ -79,7 +79,7 @@ export default {
   methods: {
     async fetchEquipos() {
       try {
-        const response = await fetch("http://localhost:3000/equipo", {
+        const response = await fetch("http://localhost:3001/equipo", {
           method: "GET",
           credentials: "include", // Permite el envío de cookies
         });
@@ -95,7 +95,7 @@ export default {
     async openPopup(equipo) {
       try {
         const response = await fetch(
-          `http://localhost:3000/equipo/${equipo.id}`,
+          `http://localhost:3001/equipo/${equipo.id}`,
           {
             method: "GET",
             credentials: "include", // Permite el envío de cookies

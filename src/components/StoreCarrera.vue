@@ -89,7 +89,7 @@ export default {
     async fetchCarrera(carreraId) {
       try {
         const response = await fetch(
-          `http://localhost:3000/carrera/${carreraId}`,
+          `http://localhost:3001/carrera/${carreraId}`,
           {
             method: "GET",
             credentials: "include",
@@ -106,7 +106,7 @@ export default {
     async fetchEquipos(carreraId) {
       try {
         const response = await fetch(
-          `http://localhost:3000/equipo/carrera/${carreraId}`,
+          `http://localhost:3001/equipo/carrera/${carreraId}`,
           {
             method: "GET",
             credentials: "include",

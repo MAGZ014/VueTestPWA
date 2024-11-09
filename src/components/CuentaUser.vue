@@ -29,7 +29,7 @@ const carreras = ref([]);
 // Función para obtener las carreras de la API al montar el componente
 const fetchCarreras = async () => {
   try {
-    const response = await fetch("http://localhost:3000/carrera", {
+    const response = await fetch("http://localhost:3001/carrera", {
       method: "GET",
       credentials: "include", // Incluye las cookies en la solicitud
     });
@@ -50,7 +50,7 @@ onMounted(fetchCarreras);
 const selectCategory = async (carreraId) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/equipo/carrera/${carreraId}`,
+      `http://localhost:3001/equipo/carrera/${carreraId}`,
       {
         method: "GET",
         headers: {

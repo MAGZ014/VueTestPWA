@@ -38,6 +38,23 @@
             id="cuatrimestre"
           />
 
+          <label for="carrera" class="form-label">Carrera</label>
+          <select
+            v-model="formData.id_carrera"
+            class="form-control"
+            id="carrera"
+            required
+          >
+            <option value="" disabled>Selecciona una carrera</option>
+            <option
+              v-for="carrera in carreras"
+              :key="carrera.id"
+              :value="carrera.id"
+            >
+              {{ carrera.nombre }}
+            </option>
+          </select>
+
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <input
@@ -58,7 +75,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -68,13 +85,32 @@ const formData = ref({
   correo: "",
   cuatrimestre: 0,
   password: "",
-  id_carrera: 10, // Aquí puedes setear el ID de la carrera predeterminado
-  id_rol: 2, // Fijamos el rol a 2 como se indicó
+  id_carrera: "", // ID de la carrera seleccionada
+  id_rol: 2, // Rol predeterminado
 });
+
+const carreras = ref([]); // Array para almacenar las carreras
+
+// Función para cargar las carreras desde la API
+const fetchCarreras = async () => {
+  try {
+    const response = await fetch("http://localhost:3001/carrera");
+    if (response.ok) {
+      carreras.value = await response.json();
+    } else {
+      console.error("Error al obtener las carreras:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Error al conectar con la API:", error);
+  }
+};
+
+// Cargar las carreras al montar el componente
+onMounted(fetchCarreras);
 
 const register = async () => {
   try {
-    const response = await fetch("http://localhost:3000/cliente/", {
+    const response = await fetch("http://localhost:3001/cliente/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

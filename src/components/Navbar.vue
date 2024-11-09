@@ -67,7 +67,7 @@ export default {
   methods: {
     async logout() {
       try {
-        const response = await fetch("http://localhost:3000/auth/logout", {
+        const response = await fetch("http://localhost:3001/auth/logout", {
           method: "POST",
           credentials: "include", // Incluye las cookies en la solicitud
         });

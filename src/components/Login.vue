@@ -60,7 +60,7 @@ export default {
     async login() {
       try {
         const response = await axios.post(
-          "http://localhost:3000/auth/login",
+          "http://localhost:3001/auth/login",
           {
             correo: this.correo,
             password: this.password,
